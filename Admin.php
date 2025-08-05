@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['logged_in'])) {
-    if ($_POST['username'] == 'admin' && $_POST['password'] == 'fero123') {
+    if ($_POST['admin'] == 'admin' && $_POST['fero123'] == 'fero123') {
         $_SESSION['logged_in'] = true;
     } else {
         ?>
