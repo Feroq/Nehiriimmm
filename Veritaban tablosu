@@ -1,0 +1,9 @@
+CREATE TABLE orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    platform VARCHAR(50),
+    username VARCHAR(100),
+    follower_count INT,
+    email VARCHAR(100),
+    status VARCHAR(50) DEFAULT 'Hazırlanıyor',
+    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
