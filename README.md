@@ -36,6 +36,11 @@
         color: #ff0066;
         font-weight: bold;
     }
+    iframe {
+        margin-top: 20px;
+        border-radius: 12px;
+        box-shadow: 0px 0px 20px rgba(0,0,0,0.2);
+    }
     .heart {
         position: absolute;
         color: red;
@@ -85,8 +90,9 @@
             document.getElementById("buttons").style.display = "none";
             document.getElementById("final").style.display = "block";
             document.getElementById("final").innerHTML = 
-            "Sen benim en güzel şarkımsın, her notasında sana âşık oluyorum...💖
-                LÜTFEN AFFET BENİ 🥺";
+            `Sen benim en güzel şarkımsın, her notasında sana âşık oluyorum... 💖
+            <br><br>
+            <iframe width="300" height="534" src="https://www.youtube.com/embed/IGrGwBThky0" title="YouTube video" frameborder="0" allowfullscreen></iframe>`;
             startHearts();
         }
     }
