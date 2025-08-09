@@ -10,6 +10,7 @@
         background-color: #ffdde1;
         text-align: center;
         padding: 50px;
+        overflow: hidden;
     }
     #question {
         font-size: 28px;
@@ -34,6 +35,16 @@
         font-size: 30px;
         color: #ff0066;
         font-weight: bold;
+    }
+    .heart {
+        position: absolute;
+        color: red;
+        font-size: 24px;
+        animation: float 4s linear infinite;
+    }
+    @keyframes float {
+        0% { transform: translateY(0) scale(1); opacity: 1; }
+        100% { transform: translateY(-800px) scale(1.5); opacity: 0; }
     }
 </style>
 </head>
@@ -73,8 +84,25 @@
             document.getElementById("question").style.display = "none";
             document.getElementById("buttons").style.display = "none";
             document.getElementById("final").style.display = "block";
-            document.getElementById("final").innerHTML = "Teşekkür ederim… Seni çok seviyorum ❤️ Affet beni...";
+            document.getElementById("final").innerHTML = 
+            "Sen benim en güzel şarkımsın, her notasında sana âşık oluyorum... 💖";
+            startHearts();
         }
+    }
+
+    function startHearts() {
+        setInterval(() => {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.textContent = "❤️";
+            heart.style.left = Math.random() * window.innerWidth + "px";
+            heart.style.top = window.innerHeight + "px";
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 4000);
+        }, 300);
     }
 
     showQuestion();
