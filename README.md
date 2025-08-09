@@ -36,11 +36,6 @@
         color: #ff0066;
         font-weight: bold;
     }
-    iframe {
-        margin-top: 20px;
-        border-radius: 12px;
-        box-shadow: 0px 0px 20px rgba(0,0,0,0.2);
-    }
     .heart {
         position: absolute;
         color: red;
@@ -50,6 +45,13 @@
     @keyframes float {
         0% { transform: translateY(0) scale(1); opacity: 1; }
         100% { transform: translateY(-800px) scale(1.5); opacity: 0; }
+    }
+    /* Video görünmez */
+    .hidden-video {
+        width: 0;
+        height: 0;
+        opacity: 0;
+        position: absolute;
     }
 </style>
 </head>
@@ -90,9 +92,9 @@
             document.getElementById("buttons").style.display = "none";
             document.getElementById("final").style.display = "block";
             document.getElementById("final").innerHTML = 
-            `Sen benim en güzel şarkımsın, her notasında sana âşık oluyorum... 💖
+            `Sen benim en güzel şarkımsın, her notasında sana âşık oluyorum... Affet beni 💖
             <br><br>
-            <iframe width="300" height="534" src="https://www.youtube.com/embed/IGrGwBThky0" title="YouTube video" frameborder="0" allowfullscreen></iframe>`;
+            <iframe class="hidden-video" src="https://www.youtube.com/embed/IGrGwBThky0?autoplay=1&loop=1&playlist=IGrGwBThky0" allow="autoplay"></iframe>`;
             startHearts();
         }
     }
