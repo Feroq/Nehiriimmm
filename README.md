@@ -3,109 +3,81 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sana Özür Borçluyum...</title>
+<title>Özür Sayfası</title>
 <style>
     body {
-        margin: 0;
-        padding: 0;
-        background: url('ARKA_PLAN_FOTO_URL') no-repeat center center/cover;
-        font-family: 'Segoe UI', sans-serif;
-        color: white;
+        font-family: 'Arial', sans-serif;
+        background-color: #ffdde1;
         text-align: center;
-        overflow-x: hidden;
+        padding: 50px;
     }
-    .overlay {
-        background: rgba(0, 0, 0, 0.5);
-        padding: 30px;
-        min-height: 100vh;
-    }
-    h1 {
-        font-size: 2.4em;
-        margin-top: 50px;
-    }
-    p {
-        font-size: 1.3em;
-        max-width: 650px;
-        margin: 20px auto;
-        line-height: 1.6;
+    #question {
+        font-size: 28px;
+        margin-bottom: 30px;
+        color: #b3005e;
     }
     button {
-        padding: 12px 24px;
-        font-size: 1.2em;
-        color: white;
-        background: #ff4f81;
+        font-size: 20px;
+        padding: 10px 20px;
+        margin: 10px;
         border: none;
-        border-radius: 30px;
+        border-radius: 8px;
         cursor: pointer;
+        background-color: #ff4d79;
+        color: white;
         transition: 0.3s;
     }
     button:hover {
-        background: #ff1e5c;
+        background-color: #ff1a66;
     }
-    .heart {
-        position: absolute;
-        width: 20px;
-        height: 20px;
-        background: red;
-        transform: rotate(45deg);
-        animation: float 5s infinite ease-in-out;
-    }
-    .heart::before, .heart::after {
-        content: '';
-        position: absolute;
-        width: 20px;
-        height: 20px;
-        background: red;
-        border-radius: 50%;
-    }
-    .heart::before { top: -10px; left: 0; }
-    .heart::after { left: -10px; top: 0; }
-    @keyframes float {
-        0% { transform: translateY(0) rotate(45deg); opacity: 1; }
-        100% { transform: translateY(-800px) rotate(45deg); opacity: 0; }
-    }
-    .love-message {
-        display: none;
-        font-size: 2em;
-        margin-top: 30px;
-        color: #ffccf9;
+    #final {
+        font-size: 30px;
+        color: #ff0066;
         font-weight: bold;
-        text-shadow: 0 0 10px pink;
     }
 </style>
 </head>
 <body>
 
-<div class="overlay">
-    <h1>❤️ Özür Dilerim ❤️</h1>
-    <p>Biliyorum seni kırdım... Bu satırları yazarken bile kalbim sıkışıyor.  
-    Sen benim en değerli parçam, en güzel yanım, en huzurlu yerimsin.  
-    Hatalarım için affet beni... Seni her şeyden çok seviyorum. 💕</p>
-
-    <h2>Beni affettin mi?</h2>
-    <button onclick="showLove()">💖 Affettim 💖</button>
-
-    <div id="loveMsg" class="love-message">💖 Seni Seviyorum 💖</div>
+<h1>💌 Sana Birkaç Sorum Var 💌</h1>
+<div id="question"></div>
+<div id="buttons">
+    <button onclick="nextQuestion()">Evet</button>
+    <button onclick="nextQuestion()">Hayır</button>
 </div>
-
-<audio autoplay loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/22/audio_5b07dcdd59.mp3?filename=romantic-piano-111444.mp3" type="audio/mpeg">
-</audio>
+<div id="final" style="display:none;"></div>
 
 <script>
-function createHeart(){
-    const heart = document.createElement('div');
-    heart.className = 'heart';
-    heart.style.left = Math.random() * 100 + 'vw';
-    heart.style.animationDuration = (2 + Math.random() * 3) + 's';
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 5000);
-}
-setInterval(createHeart, 300);
+    const questions = [
+        "Beni seviyor musun? ❤️",
+        "Bana güveniyor musun? 🔒",
+        "Beni özledin mi? 😢",
+        "Bana kırgın mısın? 💔",
+        "Şu an gülüyor musun? 😊",
+        "Beni affetmen için bir çiçek yollasam kabul eder misin? 🌹",
+        "Sana hep değer vereceğime inanıyor musun? 💎",
+        "Şimdi kocaman bir sarılma istiyor musun? 🤗"
+    ];
 
-function showLove(){
-    document.getElementById("loveMsg").style.display = "block";
-}
+    let index = 0;
+
+    function showQuestion() {
+        document.getElementById("question").textContent = questions[index];
+    }
+
+    function nextQuestion() {
+        index++;
+        if (index < questions.length) {
+            showQuestion();
+        } else {
+            document.getElementById("question").style.display = "none";
+            document.getElementById("buttons").style.display = "none";
+            document.getElementById("final").style.display = "block";
+            document.getElementById("final").innerHTML = "Teşekkür ederim… Seni çok seviyorum ❤️ Affet beni...";
+        }
+    }
+
+    showQuestion();
 </script>
 
 </body>
