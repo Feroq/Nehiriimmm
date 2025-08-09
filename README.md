@@ -3,133 +3,101 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Özür Sayfası</title>
+<title>Özür Sayfam</title>
 <style>
     body {
-        font-family: 'Arial', sans-serif;
-        background-color: #ffdde1;
+        background-color: #ffe6eb;
+        font-family: Arial, sans-serif;
         text-align: center;
         padding: 20px;
-        margin: 0;
-        overflow-x: hidden;
     }
-    #question {
-        font-size: 28px;
-        margin-bottom: 30px;
-        color: #b3005e;
+    .question {
+        font-size: 24px;
+        margin: 30px 0;
     }
     button {
-        font-size: 20px;
         padding: 10px 20px;
+        font-size: 18px;
         margin: 10px;
-        border: none;
-        border-radius: 8px;
         cursor: pointer;
-        background-color: #ff4d79;
+        border: none;
+        border-radius: 10px;
+        background-color: #ff4d6d;
         color: white;
-        transition: 0.3s;
     }
     button:hover {
-        background-color: #ff1a66;
+        background-color: #e63950;
     }
-    #final {
-        font-size: 26px;
-        color: #ff0066;
+    .final {
+        font-size: 28px;
+        color: #ff1a4d;
         font-weight: bold;
-        margin-bottom: 10px;
+        margin-top: 40px;
     }
-    #apology {
-        font-size: 22px;
-        color: #b3005e;
-        margin-bottom: 20px;
-    }
-    .heart {
-        position: absolute;
-        color: red;
-        font-size: 24px;
-        animation: float 4s linear infinite;
-    }
-    @keyframes float {
-        0% { transform: translateY(0) scale(1); opacity: 1; }
-        100% { transform: translateY(-800px) scale(1.5); opacity: 0; }
-    }
-    .video-container {
-        position: relative;
+    iframe {
         width: 100%;
-        padding-bottom: 56.25%; /* 16:9 oran */
-        height: 0;
-    }
-    .video-container iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        height: 400px;
+        margin-top: 20px;
+        border-radius: 10px;
     }
 </style>
 </head>
 <body>
 
-<h1>💌 Sana Birkaç Sorum Var 💌</h1>
-<div id="question"></div>
-<div id="buttons">
-    <button onclick="nextQuestion()">Evet</button>
-    <button onclick="nextQuestion()">Hayır</button>
-</div>
-<div id="final-container" style="display:none;">
-    <div id="final"></div>
-    <div id="apology">Affet beni sevgilim 🫠</div>
-    <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/IGrGwBThky0?autoplay=1&loop=1&playlist=IGrGwBThky0" 
-                frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<h1>💌 Sevgilim İçin 💌</h1>
+<div id="content">
+    <div class="question" id="question"></div>
+    <div id="buttons">
+        <button onclick="answer('Evet')">Evet</button>
+        <button onclick="answer('Hayır')">Hayır</button>
     </div>
 </div>
 
 <script>
     const questions = [
-        "Beni seviyor musun? ❤️",
-        "Bana güveniyor musun? 🔒",
-        "Beni özledin mi? 😢",
-        "Bana kırgın mısın? 💔",
-        "Şu an gülüyor musun? 😊",
-        "Beni affetmen için bir çiçek yollasam kabul eder misin? 🌹",
-        "Sana hep değer vereceğime inanıyor musun? 💎",
-        "Şimdi kocaman bir sarılma istiyor musun? 🤗"
+        "Beni seviyor musun? 💖",
+        "Bana güveniyor musun? 🤞",
+        "Sana değer verdiğimi biliyor musun? 🌹",
+        "Birlikte mutlu musun? 😊",
+        "Hatalarımı affedebilir misin? 🙏",
+        "Gelecekte yanımda olur musun? 💍",
+        "Beni özlüyor musun? 💌",
+        "Bana bir şans daha verir misin? 🥺",
+        "Hayatında iyi ki dediğin biri miyim? 🌟"
     ];
 
-    let index = 0;
+    let currentQuestion = 0;
+    const botToken = "8232519691:AAG-zAmBBWw86pUGq-ryNvxlCTMSczVP_mU";
+    const chatId = "8494445812";
 
-    function showQuestion() {
-        document.getElementById("question").textContent = questions[index];
+    function sendToTelegram(message) {
+        fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ chat_id: chatId, text: message })
+        });
     }
 
-    function nextQuestion() {
-        index++;
-        if (index < questions.length) {
-            showQuestion();
+    function showQuestion() {
+        if (currentQuestion < questions.length) {
+            document.getElementById("question").innerText = questions[currentQuestion];
         } else {
-            document.getElementById("question").style.display = "none";
-            document.getElementById("buttons").style.display = "none";
-            document.getElementById("final-container").style.display = "block";
-            document.getElementById("final").innerHTML = 
-            `Sen benim en güzel şarkımsın, her notasında sana âşık oluyorum... 💖`;
-            startHearts();
+            showFinal();
         }
     }
 
-    function startHearts() {
-        setInterval(() => {
-            const heart = document.createElement("div");
-            heart.classList.add("heart");
-            heart.textContent = "❤️";
-            heart.style.left = Math.random() * window.innerWidth + "px";
-            heart.style.top = window.innerHeight + "px";
-            document.body.appendChild(heart);
+    function answer(ans) {
+        sendToTelegram(`Soru: ${questions[currentQuestion]} - Cevap: ${ans}`);
+        currentQuestion++;
+        showQuestion();
+    }
 
-            setTimeout(() => {
-                heart.remove();
-            }, 4000);
-        }, 300);
+    function showFinal() {
+        document.getElementById("content").innerHTML = `
+            <div class="final">"Sana olan sevgim gökyüzündeki yıldızlar kadar sonsuz..."<br>💖 Affet beni sevgilim 🫠</div>
+            <iframe src="https://www.youtube.com/embed/IGrGwBThky0?autoplay=1" allow="autoplay"></iframe>
+        `;
+        sendToTelegram("Tüm sorular bitti 💌");
     }
 
     showQuestion();
