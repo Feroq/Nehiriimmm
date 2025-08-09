@@ -9,8 +9,9 @@
         font-family: 'Arial', sans-serif;
         background-color: #ffdde1;
         text-align: center;
-        padding: 50px;
-        overflow: hidden;
+        padding: 20px;
+        margin: 0;
+        overflow-x: hidden;
     }
     #question {
         font-size: 28px;
@@ -32,9 +33,15 @@
         background-color: #ff1a66;
     }
     #final {
-        font-size: 30px;
+        font-size: 26px;
         color: #ff0066;
         font-weight: bold;
+        margin-bottom: 10px;
+    }
+    #apology {
+        font-size: 22px;
+        color: #b3005e;
+        margin-bottom: 20px;
     }
     .heart {
         position: absolute;
@@ -46,12 +53,18 @@
         0% { transform: translateY(0) scale(1); opacity: 1; }
         100% { transform: translateY(-800px) scale(1.5); opacity: 0; }
     }
-    /* Video görünmez */
-    .hidden-video {
-        width: 0;
+    .video-container {
+        position: relative;
+        width: 100%;
+        padding-bottom: 56.25%; /* 16:9 oran */
         height: 0;
-        opacity: 0;
+    }
+    .video-container iframe {
         position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
     }
 </style>
 </head>
@@ -63,7 +76,14 @@
     <button onclick="nextQuestion()">Evet</button>
     <button onclick="nextQuestion()">Hayır</button>
 </div>
-<div id="final" style="display:none;"></div>
+<div id="final-container" style="display:none;">
+    <div id="final"></div>
+    <div id="apology">Affet beni sevgilim 🫠</div>
+    <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/IGrGwBThky0?autoplay=1&loop=1&playlist=IGrGwBThky0" 
+                frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+</div>
 
 <script>
     const questions = [
@@ -90,11 +110,9 @@
         } else {
             document.getElementById("question").style.display = "none";
             document.getElementById("buttons").style.display = "none";
-            document.getElementById("final").style.display = "block";
+            document.getElementById("final-container").style.display = "block";
             document.getElementById("final").innerHTML = 
-            `Sen benim en güzel şarkımsın, her notasında sana âşık oluyorum... Affet beni 💖
-            <br><br>
-            <iframe class="hidden-video" src="https://www.youtube.com/embed/IGrGwBThky0?autoplay=1&loop=1&playlist=IGrGwBThky0" allow="autoplay"></iframe>`;
+            `Sen benim en güzel şarkımsın, her notasında sana âşık oluyorum... 💖`;
             startHearts();
         }
     }
