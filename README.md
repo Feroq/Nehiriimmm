@@ -85,7 +85,8 @@
             document.getElementById("buttons").style.display = "none";
             document.getElementById("final").style.display = "block";
             document.getElementById("final").innerHTML = 
-            "Sen benim en güzel şarkımsın, her notasında sana âşık oluyorum... 💖";
+            "Sen benim en güzel şarkımsın, her notasında sana âşık oluyorum...💖
+                LÜTFEN AFFET BENİ 🥺";
             startHearts();
         }
     }
